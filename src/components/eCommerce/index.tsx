@@ -1,3 +1,5 @@
 import HeaderBasket from "./HeaderBasket/HeaderBasket";
-
-export {HeaderBasket};
+import Category from "./Category/Category";
+import Product from "./Product/Product";
+export {HeaderBasket , Category , Product};
+//this write just for reduce paths
