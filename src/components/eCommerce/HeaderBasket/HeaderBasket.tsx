@@ -1,7 +1,7 @@
-import Logo from "../../../assets/svg/cart.svg?react"
+import Logo from "@assets/svg/cart.svg?react"
 import styles from "./styles.module.css"
 const {basketContainer , basketQuantity} = styles;
-const HeaderBasket = ( )=>{
+const HeaderBasket = ()=>{
 
     return <div className={basketContainer}>
              <Logo />
