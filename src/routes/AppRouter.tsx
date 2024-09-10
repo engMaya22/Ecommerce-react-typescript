@@ -39,7 +39,21 @@ export default function AppRouter() {
           },
           {
             path:"products/:prefix",
-            element : <Products />
+            element : <Products />,
+            loader:(({params})=>{
+              if (
+                // this guard by type to insure the define and string type
+                typeof params.prefix !== "string" ||//undefined
+                !/^[a-z]+$/i.test(params.prefix)//not string
+              ) {
+                throw new Response("Bad Request", {
+                  statusText: "Category not found",
+                  status: 400,
+                });
+              }
+              return true;
+
+            })
           }
         ]
     }])
