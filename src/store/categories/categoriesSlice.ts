@@ -1,9 +1,11 @@
 import {  createSlice } from "@reduxjs/toolkit";
 import actGetCategories from "./act/actGetCategories";
+import { Tcategory } from "@customTypes/category";
+import { TLoading } from "@customTypes/shared";
 
 interface ICategoriesState {
-    records: {id:number, title:string,prefix:string ,img:string}[],//array or objects
-    loading: 'idle' | 'pending' | 'succeeded' | 'failed',
+    records: Tcategory[],//array or objects
+    loading: TLoading,
     error : string|null
 }
 const initialState:ICategoriesState = {
