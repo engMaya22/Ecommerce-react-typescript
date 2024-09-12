@@ -3,8 +3,10 @@ import { isRouteErrorResponse, Link, useRouteError } from "react-router-dom";
 
 export default function Error() {
   const error = useRouteError()  ;// to access status , statusText
+
   let status:number;
   let statusText:string;
+  
   if(isRouteErrorResponse(error)){//error from react router dom
          status = error.status;
          statusText = error.statusText;

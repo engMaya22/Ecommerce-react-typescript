@@ -38,7 +38,7 @@ export default function AppRouter() {
             element : <Categories />
           },
           {
-            path:"products/:prefix",
+            path:"categories/products/:prefix",
             element : <Products />,
             loader:(({params})=>{
               if (
