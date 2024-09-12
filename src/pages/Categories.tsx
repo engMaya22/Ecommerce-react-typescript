@@ -3,7 +3,7 @@ import { Category } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { useEffect } from "react";
 import { actGetCategories } from "@store/categories/categoriesSlice";
-
+import {Loading} from "@components/feedback"
 const Categories = () => {
   const {loading , records , error} = useAppSelector((state) => state.categories)
   const dispatch = useAppDispatch()
@@ -21,11 +21,14 @@ const Categories = () => {
     </Col>
   )): 'There are no categories';
   return (
-    <Container>
-      <Row>
-       {categoriesList}
-      </Row>
-    </Container>
+        <Container>
+              <Loading error={error}  status={loading} >
+                <Row>
+                 {categoriesList}
+                </Row>
+              </Loading>
+
+        </Container>
   );
 };
 

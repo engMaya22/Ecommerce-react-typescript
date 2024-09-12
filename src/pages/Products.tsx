@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from "@store/hook";
 import { useEffect } from "react";
 import { actGetProductsByCat, productsCleanUp } from "@store/products/productsSlice";
 import { useParams } from "react-router-dom";
+import {Loading} from "@components/feedback"
+
 const Products = () => {
   const {records , loading , error} = useAppSelector((state)=>state.products);
   const params = useParams();
@@ -27,9 +29,11 @@ const Products = () => {
 
   return (
     <Container>
-      <Row>
-       {productsList}
-      </Row>
+      <Loading error={error}  status={loading} >
+        <Row>
+        {productsList}
+        </Row>
+      </Loading>
     </Container>
   );
 };
