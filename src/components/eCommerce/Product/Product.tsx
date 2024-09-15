@@ -8,10 +8,9 @@ const { product, productImg } = styles;
 
 const Product = ({id , title ,img ,price }:Tproduct) => {
  
- const [isBtnClicked,setIsBtnClicked] = useState(0);
  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
  useEffect(()=>{
-   if(!isBtnClicked)
+   if(!isBtnDisabled)
      return;
    setIsBtnDisabled(true)
    const debounse = setTimeout(()=>{
@@ -22,12 +21,12 @@ const Product = ({id , title ,img ,price }:Tproduct) => {
    return ()=>clearTimeout(debounse);
    
 
- },[isBtnClicked])
+ },[isBtnDisabled])
 
   const dispatch = useDispatch();
   const addToCartHandler =()=>{
     dispatch (addToCart(id));
-    setIsBtnClicked((prev)=>prev+1);
+    setIsBtnDisabled(true)
 
   }
   return (
