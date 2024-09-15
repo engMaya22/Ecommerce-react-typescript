@@ -4,7 +4,8 @@ export type Tproduct  ={
     cat_prefix :string,
     img: string
     price: string,
-    quantity?:number
+    quantity?:number,
+    max:number,
 
   
 }

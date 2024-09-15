@@ -3,11 +3,13 @@ import styles from "./styles.module.css";
 import { Tproduct } from "@customTypes/product";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@store/cart/cartSlice";
-import { useEffect, useState } from "react";
-const { product, productImg } = styles;
+import { memo, useEffect, useState } from "react";
+const { product, productImg ,maximumNotice} = styles;
 
-const Product = ({id , title ,img ,price }:Tproduct) => {
- 
+const Product = memo(({id , title ,img ,price , max ,quantity}:Tproduct) => {
+  console.log(quantity);
+  const currentRemainQuantity = max - (quantity?? 0);//if no quantity added from product make it zero 
+  const quantityReachedMax = currentRemainQuantity == 0 ? true :false;
  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
  useEffect(()=>{
    if(!isBtnDisabled)
@@ -16,7 +18,7 @@ const Product = ({id , title ,img ,price }:Tproduct) => {
    const debounse = setTimeout(()=>{
     setIsBtnDisabled(false)
 
-   },300)
+   },300)//make it disable after 300 ms
    
    return ()=>clearTimeout(debounse);
    
@@ -39,15 +41,16 @@ const Product = ({id , title ,img ,price }:Tproduct) => {
       </div>
       <h2 title={title}>{title}</h2>
       <h3>{price}</h3>
+      <p className={maximumNotice}>{quantityReachedMax ? "you reached max" : `you can add ${currentRemainQuantity} item(s)`}</p>
       <Button variant="info" style={{ color: "white" }} 
               onClick={addToCartHandler} 
-              disabled={isBtnDisabled}
+              disabled={isBtnDisabled || quantityReachedMax}
               >
-                 {isBtnDisabled? <><Spinner animation="border" size="sm"/>Loading</> :"Add to cart" }
+                 {isBtnDisabled? <><Spinner animation="border" size="sm"/>Loading...</> :"Add to cart" }
         
       </Button>
     </div>
   );
-};
+});
 
 export default Product;

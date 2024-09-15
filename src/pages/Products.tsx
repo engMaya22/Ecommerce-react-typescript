@@ -10,8 +10,15 @@ import { GridList } from "@components/common";
 const Products = () => {
   const {records , loading , error} = useAppSelector((state)=>state.products);
   const params = useParams();
-  console.log(params);
   const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state)=>state.cart.items);
+  const productsFullInfo = records.map((el)=>({
+    ...el ,
+    quantity:cartItems[el.id] || 0 //we added current quantity to each item if no quantity it is zero
+    //which is value of cartItems array
+  }));
+
+
   useEffect(()=>{
       dispatch(actGetProductsByCat(params?.prefix as string))//here I could make casting as I make guard ti sure
       //in app url that the prefix is string
@@ -31,7 +38,7 @@ const Products = () => {
   return (
     <Container>
       <Loading error={error}  status={loading} >
-      <GridList records={records} 
+      <GridList records={productsFullInfo} 
                           renderItem={(record)=><Product {...record} />}
                 />
                 
