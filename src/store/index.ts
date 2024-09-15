@@ -7,9 +7,9 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 
 
 const cartPersistConfig = {
-    key:'cart',//main config 
+    key:'cart',
     storage,//local storage for web
-    whitelist:['items'],//cash just cart
+    whitelist:['items'],//cash just items in cart
   }
 const rootReducer = combineReducers({
     categories ,

@@ -2,19 +2,26 @@ import Logo from "@assets/svg/cart.svg?react"
 import styles from "./styles.module.css"
 import { useAppSelector } from "@store/hook";
 import { getCartTotalQuantity } from "@store/cart/selectors";
-const {basketContainer , basketQuantity} = styles;
+import { useEffect, useState } from "react";
+const {basketContainer , basketQuantity ,pumpCartQuantity} = styles;
 const HeaderBasket = ()=>{
-    const cartItems = useAppSelector(getCartTotalQuantity);
-    // const {items} = useAppSelector(state => state.cart);
-    // const totalQuantity = Object.values(cartItems).reduce(//values of cartItem object which are quantity
-    //   (accumulator,current)=>{
-    //     return accumulator + current;
+    const totalQuantity = useAppSelector(getCartTotalQuantity);
+    const [isAnimated , setIsAnimated] = useState(false);
+    const qunaitityStyle = `${basketQuantity} ${isAnimated ? pumpCartQuantity : ''} `
 
-    //   },0//zero is initial value
-    // )
+    useEffect(()=>{
+      if(!totalQuantity)
+         {return;}//not animated if zero
+      setIsAnimated(true)
+
+      const debounce = setTimeout(() => setIsAnimated(false), 300);//call set false  after  animation finised (300ms)
+      return ()=>clearTimeout(debounce);
+      
+    },[totalQuantity])
+   
     return <div className={basketContainer}>
              <Logo />
-             <div className={basketQuantity}>{cartItems}</div>
+             <div className={qunaitityStyle}>{totalQuantity}</div>
            </div>
 
 }
