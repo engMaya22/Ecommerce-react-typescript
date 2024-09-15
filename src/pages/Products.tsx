@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { actGetProductsByCat, productsCleanUp } from "@store/products/productsSlice";
 import { useParams } from "react-router-dom";
 import {Loading} from "@components/feedback"
-import { GridList } from "@components/common";
+import { GridList, Heading } from "@components/common";
 
 const Products = () => {
   const {records , loading , error} = useAppSelector((state)=>state.products);
@@ -36,14 +36,15 @@ const Products = () => {
   // )): 'There are no products available'
 
   return (
-    <Container>
+    <>
+    <Heading> <span className="text-capitalize">{params.prefix}</span> Products</Heading>
       <Loading error={error}  status={loading} >
       <GridList records={productsFullInfo} 
                           renderItem={(record)=><Product {...record} />}
                 />
                 
       </Loading>
-    </Container>
+    </>
   );
 };
 

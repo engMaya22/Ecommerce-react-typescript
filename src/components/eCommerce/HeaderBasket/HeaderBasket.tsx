@@ -3,7 +3,7 @@ import styles from "./styles.module.css"
 import { useAppSelector } from "@store/hook";
 import { getCartTotalQuantity } from "@store/cart/selectors";
 import { useEffect, useState } from "react";
-const {basketContainer , basketQuantity ,pumpCartQuantity} = styles;
+const {basketContainer , basketQuantity ,pumpCartQuantity ,basketCart} = styles;
 const HeaderBasket = ()=>{
     const totalQuantity = useAppSelector(getCartTotalQuantity);
     const [isAnimated , setIsAnimated] = useState(false);
@@ -20,8 +20,11 @@ const HeaderBasket = ()=>{
     },[totalQuantity])
    
     return <div className={basketContainer}>
-             <Logo />
-             <div className={qunaitityStyle}>{totalQuantity}</div>
+            <div className={basketCart}>
+              <Logo />
+              <div className={qunaitityStyle}>{totalQuantity}</div>
+            </div>
+            <h3>Cart</h3>
            </div>
 
 }

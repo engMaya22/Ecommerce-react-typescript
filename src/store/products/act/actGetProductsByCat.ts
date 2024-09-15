@@ -10,7 +10,7 @@ type TCresponse = Tproduct[];//we define the api data returned for type script
     async (prefix:string, thunkAPI) => {
       const {rejectWithValue} = thunkAPI;
       try {
-        const response = await axios.get<TCresponse>(`http://localhost:5000/products?cat_prefix=${prefix}`);
+        const response = await axios.get<TCresponse>(`/products?cat_prefix=${prefix}`);
         // const data =  response.data.map(el=> el.i)
         return response.data;
       }catch(error){

@@ -1,10 +1,10 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Category } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { useEffect } from "react";
 import { actGetCategories } from "@store/categories/categoriesSlice";
 import {Loading} from "@components/feedback"
-import { GridList } from "@components/common";
+import { GridList, Heading } from "@components/common";
 const Categories = () => {
   const {loading , records , error} = useAppSelector((state) => state.categories)
   const dispatch = useAppDispatch()
@@ -22,14 +22,15 @@ const Categories = () => {
   //   </Col>
   // )): 'There are no categories';
   return (
-        <Container>
+        <>
+              <Heading>Categories</Heading>
               <Loading error={error}  status={loading} >
                 <GridList records={records} 
                           renderItem={(record)=><Category {...record} />}
                 />
                 
               </Loading>
-        </Container>
+        </>
   );
 };
 

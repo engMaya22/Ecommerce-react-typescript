@@ -40,7 +40,7 @@ const Product = memo(({id , title ,img ,price , max ,quantity}:Tproduct) => {
         />
       </div>
       <h2 title={title}>{title}</h2>
-      <h3>{price}</h3>
+      <h3>{price.toFixed(2)}</h3>
       <p className={maximumNotice}>{quantityReachedMax ? "you reached max" : `you can add ${currentRemainQuantity} item(s)`}</p>
       <Button variant="info" style={{ color: "white" }} 
               onClick={addToCartHandler} 

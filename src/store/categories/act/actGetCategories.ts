@@ -10,7 +10,7 @@ type TCresponse = Tcategory[];//we define the api data returned for type script
     async (_, thunkAPI) => {
       const {rejectWithValue} = thunkAPI;
       try {
-        const response = await axios.get<TCresponse>("http://localhost:5000/categories");
+        const response = await axios.get<TCresponse>("/categories");
         // const data =  response.data.map(el=> el.i)
         return response.data;
       }catch(error){
