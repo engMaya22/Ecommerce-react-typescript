@@ -11,17 +11,18 @@ const { category, categoryImg, categoryTitle } = styles;
 const Category = ({title,img,prefix}:Tcategory) => {
 
   return (
-   <Link to={`products/${prefix}`} >
         <div className={category}>
-          <div className={categoryImg}>
-            <img
-              src={img}
-              alt={title}
-            />
-          </div>
-          <h4 className={categoryTitle}>Title</h4>
+          <Link to={`products/${prefix}`} >
+            <div className={categoryImg}>
+              <img
+                src={img}
+                alt={title}
+              />
+            </div>
+            <h4 className={categoryTitle}>Title</h4>
+        </Link>
     </div>
-   </Link>
+  
   );
 };
 
