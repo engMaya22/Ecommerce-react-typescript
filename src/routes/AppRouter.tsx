@@ -11,6 +11,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from "@pages/Login"
 import Register from "@pages/Register"
 import Error from "@pages/Error"
+import Cart from "@pages/Cart"
 export default function AppRouter() {
     const router = createBrowserRouter([{
         path:"/",
@@ -54,7 +55,11 @@ export default function AppRouter() {
               return true;
 
             })
-          }
+          },
+          {
+            path:"/cart",
+            element : <Cart />
+          },
         ]
     }])
   return (
