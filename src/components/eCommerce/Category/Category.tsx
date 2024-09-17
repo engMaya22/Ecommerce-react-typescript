@@ -19,7 +19,7 @@ const Category = ({title,img,prefix}:Tcategory) => {
                 alt={title}
               />
             </div>
-            <h4 className={categoryTitle}>Title</h4>
+            <h4 className={categoryTitle}>{title}</h4>
         </Link>
     </div>
   
