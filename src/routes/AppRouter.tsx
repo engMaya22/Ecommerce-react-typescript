@@ -12,6 +12,7 @@ import Login from "@pages/Login"
 import Register from "@pages/Register"
 import Error from "@pages/Error"
 import Cart from "@pages/Cart"
+import WishList from "@pages/WishList"
 export default function AppRouter() {
     const router = createBrowserRouter([{
         path:"/",
@@ -59,6 +60,10 @@ export default function AppRouter() {
           {
             path:"/cart",
             element : <Cart />
+          },
+          {
+            path:"/wishlist",
+            element : <WishList />
           },
         ]
     }])
