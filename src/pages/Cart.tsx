@@ -35,18 +35,20 @@ const  Cart=()=> {
     <>
      <Heading> cart</Heading>
      <Loading error={error}  status={loading} >
-      <>
-        <CartItemList products={products} 
-                       ChangeQuantityHandler={ChangeQuantityHandler}
-                       DeleteItemHandler={deleteItemHandler}/>
-        {/* this cartItemList for loop databy map */}
-        <CartSubtotalPrice />
-
-      </>
+      {products.length ? 
+                <>
+                <CartItemList products={products} 
+                               ChangeQuantityHandler={ChangeQuantityHandler}
+                               DeleteItemHandler={deleteItemHandler}/>
+                {/* this cartItemList for loop databy map */}
+                <CartSubtotalPrice products={products} />
+        
+              </> 
+              : (" Your Cart is empty")
+              }
 
       </Loading>
      
-     <CartSubtotalPrice/>
 
     </>
   )
