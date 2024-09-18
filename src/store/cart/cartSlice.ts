@@ -31,8 +31,13 @@ const cartSlice = createSlice({
         },
         cartChangeQuantity:(state,action)=>{
          state.items[action.payload.id] = action.payload.quantity;
+        },
+        removeCartItem:(state,action)=>{
+            //we need to delete from two places
+            delete state.items[action.payload]
+            state.productsFullInfo = state.productsFullInfo.filter((el)=>el.id !== action.payload )
         }
-        
+
      },
      extraReducers:(builder) =>{
 
@@ -69,5 +74,5 @@ const cartSlice = createSlice({
 
 
 export {actGetProductsByItems };
-export const {addToCart , cartChangeQuantity} = cartSlice.actions;
+export const {addToCart , cartChangeQuantity ,removeCartItem} = cartSlice.actions;
 export default cartSlice.reducer

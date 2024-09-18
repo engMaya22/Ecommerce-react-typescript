@@ -1,7 +1,7 @@
 import {  Heading } from "@components/common";
 import { CartItem, CartItemList, CartSubtotalPrice } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
-import { actGetProductsByItems, cartChangeQuantity } from "@store/cart/cartSlice";
+import { actGetProductsByItems, cartChangeQuantity, removeCartItem } from "@store/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { useCallback, useEffect } from "react";
 
@@ -26,13 +26,19 @@ const  Cart=()=> {
      dispatch(cartChangeQuantity({id,quantity}))
 
     },[dispatch]);
+    const deleteItemHandler=useCallback(
+    (id:number)=>{
+      dispatch(removeCartItem(id))
+    
+    } ,[dispatch]);
   return (
     <>
      <Heading> cart</Heading>
      <Loading error={error}  status={loading} >
       <>
         <CartItemList products={products} 
-                       ChangeQuantityHandler={ChangeQuantityHandler}/>
+                       ChangeQuantityHandler={ChangeQuantityHandler}
+                       DeleteItemHandler={deleteItemHandler}/>
         {/* this cartItemList for loop databy map */}
         <CartSubtotalPrice />
 

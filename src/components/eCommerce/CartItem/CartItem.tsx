@@ -1,18 +1,22 @@
 import { Form, Button } from "react-bootstrap";
 import styles from "./styles.module.css";
 import { Tproduct } from "@customTypes/product";
-import { memo } from "react";
+import { memo, useCallback } from "react";
+import { useAppDispatch } from "@store/hook";
+import { removeCartItem } from "@store/cart/cartSlice";
 
 const { cartItem, product, productImg, productInfo, cartItemSelection } =
   styles;
 
 type CartItemProps = Tproduct & {
   ChangeQuantityHandler:(id:number,quantity:number)=>void;
+  DeleteItemHandler:(id:number)=>void;
 
 };
 
-const CartItem = memo(({id ,title,img,price , max ,quantity ,ChangeQuantityHandler}:CartItemProps) => {
-  console.log('render');
+const CartItem = memo(({id ,title,img,price , max ,quantity ,ChangeQuantityHandler,DeleteItemHandler}:CartItemProps) => {
+  const dispatch = useAppDispatch();
+
   const renderOptions = Array(max).fill(0).map((el,idx)=>{
     const quantity = ++idx;
     return (
@@ -25,6 +29,7 @@ const CartItem = memo(({id ,title,img,price , max ,quantity ,ChangeQuantityHandl
     ChangeQuantityHandler(id,quantity);
 
   }
+
 
   return (
     <div className={cartItem}>
@@ -42,6 +47,7 @@ const CartItem = memo(({id ,title,img,price , max ,quantity ,ChangeQuantityHandl
             variant="secondary"
             style={{ color: "white" }}
             className="mt-auto"
+            onClick={()=>DeleteItemHandler(id)}
           >
             Remove
           </Button>
