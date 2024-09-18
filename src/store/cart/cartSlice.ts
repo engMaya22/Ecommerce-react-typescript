@@ -28,6 +28,9 @@ const cartSlice = createSlice({
             }else{
                 state.items[id] = 1
             }
+        },
+        cartChangeQuantity:(state,action)=>{
+         state.items[action.payload.id] = action.payload.quantity;
         }
         
      },
@@ -65,6 +68,6 @@ const cartSlice = createSlice({
 
 
 
-export {actGetProductsByItems};
-export const {addToCart} = cartSlice.actions;
+export {actGetProductsByItems };
+export const {addToCart , cartChangeQuantity} = cartSlice.actions;
 export default cartSlice.reducer
