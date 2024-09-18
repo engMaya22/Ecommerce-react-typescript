@@ -1,8 +1,9 @@
 .product {
-    width: 120px;
+    width: 130px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
   }
   
   .productImg  {
@@ -32,4 +33,20 @@
   .maximumNotice{
     font-size: 12px;
     margin-bottom: 7px;
+  }
+  .wishListBtn{
+    position: absolute;
+    background-color: white;
+    height: 28px;
+    width: 28px;
+    top: 7px;
+    right: 7px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .wishListBtn:hover{
+    box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, 0.4);
   }

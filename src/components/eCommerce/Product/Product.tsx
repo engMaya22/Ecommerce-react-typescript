@@ -4,7 +4,10 @@ import { Tproduct } from "@customTypes/product";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@store/cart/cartSlice";
 import { memo, useEffect, useState } from "react";
-const { product, productImg ,maximumNotice} = styles;
+import LikeFill from "@assets/svg/like-fill.svg?react"
+import Like from "@assets/svg/like.svg?react"
+const { product, productImg ,maximumNotice ,wishListBtn} = styles;
+
 
 const Product = memo(({id , title ,img ,price , max ,quantity}:Tproduct) => {
   console.log(quantity);
@@ -33,6 +36,7 @@ const Product = memo(({id , title ,img ,price , max ,quantity}:Tproduct) => {
   }
   return (
     <div className={product}>
+      <div className={wishListBtn}> <Like /> </div>
       <div className={productImg}>
         <img
           src={img}
@@ -49,6 +53,7 @@ const Product = memo(({id , title ,img ,price , max ,quantity}:Tproduct) => {
                  {isBtnDisabled? <><Spinner animation="border" size="sm"/>Loading...</> :"Add to cart" }
         
       </Button>
+
     </div>
   );
 });
