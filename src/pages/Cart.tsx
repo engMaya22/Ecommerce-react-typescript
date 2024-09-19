@@ -36,7 +36,7 @@ const  Cart=()=> {
     } ,[dispatch]);
   return (
     <>
-     <Heading> cart</Heading>
+     <Heading title="Your Cart" /> 
      <Loading error={error}  status={loading} >
       {products.length ? 
                 <>

@@ -39,7 +39,7 @@ const Products = () => {
 
   return (
     <>
-    <Heading> <span className="text-capitalize">{params.prefix}</span> Products</Heading>
+    <Heading title={`${params.prefix?.toUpperCase()} Products`} />
       <Loading error={error}  status={loading} >
       <GridList records={productsFullInfo} 
                           renderItem={(record)=><Product {...record} />}

@@ -28,7 +28,7 @@ const Categories = () => {
   // )): 'There are no categories';
   return (
         <>
-              <Heading>Categories</Heading>
+              <Heading title="Categories" />
               <Loading error={error}  status={loading} >
                 <GridList records={records} 
                           renderItem={(record)=><Category {...record} />}

@@ -27,7 +27,7 @@ const WishList = ()=>{
     }));
   
     return <>
-            <Heading>Your Wishlist</Heading>
+            <Heading title="Your Wishlist" />
             <Loading error={error}  status={loading} >
                <GridList records={records} 
                           renderItem={(record)=><Product {...record} />}
