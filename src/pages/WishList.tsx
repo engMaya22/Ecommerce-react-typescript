@@ -2,7 +2,7 @@ import { GridList, Heading } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 import { useAppDispatch, useAppSelector } from "@store/hook";
-import { productsCleanUp } from "@store/products/productsSlice";
+import {  productsRecordCleanUp } from "@store/products/productsSlice";
 import { actGetWishlist } from "@store/wishlist/wishlistSlice";
 import { useEffect } from "react";
 
@@ -13,7 +13,7 @@ const WishList = ()=>{
     useEffect (()=>{
        dispatch(actGetWishlist());
        return ()=>{
-         dispatch(productsCleanUp())
+         dispatch(productsRecordCleanUp())
        }
     },[dispatch])
 

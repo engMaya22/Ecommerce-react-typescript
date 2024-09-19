@@ -36,6 +36,9 @@ const cartSlice = createSlice({
             //we need to delete from two places
             delete state.items[action.payload]
             state.productsFullInfo = state.productsFullInfo.filter((el)=>el.id !== action.payload )
+        },
+        cartProductInfoCleanUp:(state)=>{
+            state.productsFullInfo = [];
         }
 
      },
@@ -74,5 +77,5 @@ const cartSlice = createSlice({
 
 
 export {actGetProductsByItems };
-export const {addToCart , cartChangeQuantity ,removeCartItem} = cartSlice.actions;
+export const {addToCart , cartChangeQuantity ,removeCartItem ,cartProductInfoCleanUp} = cartSlice.actions;
 export default cartSlice.reducer

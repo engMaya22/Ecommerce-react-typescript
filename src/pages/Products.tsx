@@ -2,7 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Product } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { useEffect } from "react";
-import { actGetProductsByCat, productsCleanUp } from "@store/products/productsSlice";
+import { actGetProductsByCat, productsRecordCleanUp } from "@store/products/productsSlice";
 import { useParams } from "react-router-dom";
 import {Loading} from "@components/feedback"
 import { GridList, Heading } from "@components/common";
@@ -25,7 +25,7 @@ const Products = () => {
       dispatch(actGetProductsByCat(params?.prefix as string))//here I could make casting as I make guard ti sure
       //in app url that the prefix is string
       return ()=>{
-        dispatch(productsCleanUp());
+        dispatch(productsRecordCleanUp());
       }
 
 

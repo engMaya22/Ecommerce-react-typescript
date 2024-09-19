@@ -1,6 +1,5 @@
 import { Tproduct } from "@customTypes/product";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "@store/index";
 import axios from "axios";
 
 
@@ -11,13 +10,6 @@ const actGetWishlist = createAsyncThunk('/wishlist/actGetWishlist',async(_ , thu
     type TRresponse = Tproduct[];
 
     try{
-        //   const concatenatedItemsId = userWishlist.data
-        //     .map((el) => `id=${el.productId}`)
-        //     .join("&");
-
-
-
-        
         const userWishlist =  await axios.get<{productId:number}[]>('/wishlist?userId=1');//get products of user id
         if(!userWishlist.data.length)//he hasnot any item in wishlist then no need to call API
              return fulfillWithValue([]);

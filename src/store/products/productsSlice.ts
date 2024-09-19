@@ -20,7 +20,7 @@ const initialState:ICategoriesState = {
     name:'products',
     initialState,
     reducers:{
-        productsCleanUp:(state)=>{
+        productsRecordCleanUp:(state)=>{
           state.records = [];
         }
     },
@@ -53,7 +53,7 @@ const initialState:ICategoriesState = {
 
         }
 })
-export const {productsCleanUp} = productsSlice.actions;
+export const {productsRecordCleanUp} = productsSlice.actions;
 export {actGetProductsByCat};// to use it easier from this path
 export default productsSlice.reducer
 

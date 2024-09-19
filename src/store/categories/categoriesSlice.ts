@@ -19,7 +19,12 @@ const initialState:ICategoriesState = {
  const categoriesSlice = createSlice({
     name:'categories',
     initialState,
-    reducers:{},
+    reducers:{
+        categoriesRecordsCleanUp:(state)=>{
+            state.records =[ ];
+
+        }
+    },
     extraReducers:(builder) =>{
 
         //get categories
@@ -50,5 +55,6 @@ const initialState:ICategoriesState = {
         }
 })
 export {actGetCategories};// to use it easier from this path
+export const {categoriesRecordsCleanUp} = categoriesSlice.actions;
 export default categoriesSlice.reducer
 

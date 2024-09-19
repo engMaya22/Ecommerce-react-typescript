@@ -11,7 +11,7 @@ const actLikeToggle = createAsyncThunk ('wishlist/actLikeToggle',
        
             if(isRecordExist.data.length){
                 await axios.delete(`/wishlist/${isRecordExist.data[0].id}`);
-                return {type:'remove',id}
+                return {type:'remove',id}//payload for client side proccessing
             }else {
                 await axios.post('/wishlist',{userId:'1',productId:id})
                 return {type:'add' ,id}

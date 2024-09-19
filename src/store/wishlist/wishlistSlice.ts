@@ -78,7 +78,7 @@ const wishlisSlice = createSlice({
 
 });
 export {actLikeToggle ,actGetWishlist } ;
-const {productsFullInfoCleanUp} = wishlisSlice.actions;
+export const {productsFullInfoCleanUp} = wishlisSlice.actions;
 export default wishlisSlice.reducer;
 
 
