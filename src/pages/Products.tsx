@@ -12,10 +12,12 @@ const Products = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state)=>state.cart.items);
+  const wishlistItemsId = useAppSelector((state)=>state.wishlist.itemsId)
   const productsFullInfo = records.map((el)=>({
     ...el ,
-    quantity:cartItems[el.id] || 0 //we added current quantity to each item if no quantity it is zero
+    quantity:cartItems[el.id] || 0 ,//we added current quantity to each item if no quantity it is zero
     //which is value of cartItems array
+    isLiked : wishlistItemsId.includes(el.id)
   }));
 
 

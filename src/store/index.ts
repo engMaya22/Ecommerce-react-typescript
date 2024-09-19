@@ -1,7 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import categories from "./categories/categoriesSlice";
 import products from "./products/productsSlice";
-import cart from "./cart/cartSlice"
+import cart from "./cart/cartSlice";
+import wishlist from "./wishlist/wishlistSlice"
 import storage from "redux-persist/lib/storage";
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
@@ -14,7 +15,9 @@ const cartPersistConfig = {
 const rootReducer = combineReducers({
     categories ,
     products,
-    cart:persistReducer(cartPersistConfig, cart)//just save items from cart state
+    cart:persistReducer(cartPersistConfig, cart),//just save items from cart state
+    wishlist
+    
 });
  const store = configureStore({
     reducer:rootReducer,

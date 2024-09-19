@@ -4,12 +4,13 @@ import { Tproduct } from "@customTypes/product";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@store/cart/cartSlice";
 import { memo, useEffect, useState } from "react";
-import LikeFill from "@assets/svg/like-fill.svg?react"
 import Like from "@assets/svg/like.svg?react"
+import LikeFill from "@assets/svg/like-fill.svg?react"
+import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 const { product, productImg ,maximumNotice ,wishListBtn} = styles;
 
 
-const Product = memo(({id , title ,img ,price , max ,quantity}:Tproduct) => {
+const Product = memo(({id , title ,img ,price , max ,quantity , isLiked}:Tproduct) => {
   console.log(quantity);
   const currentRemainQuantity = max - (quantity?? 0);//if no quantity added from product make it zero 
   const quantityReachedMax = currentRemainQuantity == 0 ? true :false;
@@ -34,9 +35,15 @@ const Product = memo(({id , title ,img ,price , max ,quantity}:Tproduct) => {
     setIsBtnDisabled(true)
 
   }
+  const likeToggleHandler = ()=>{
+    dispatch(actLikeToggle(id))
+  }
   return (
     <div className={product}>
-      <div className={wishListBtn}> <Like /> </div>
+      <div className={wishListBtn} onClick={likeToggleHandler}>
+        {isLiked?<LikeFill />:  <Like />  }
+          
+           </div>
       <div className={productImg}>
         <img
           src={img}
