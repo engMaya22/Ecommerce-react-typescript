@@ -1,5 +1,6 @@
 import HeaderBasket from "./HeaderBasket/HeaderBasket";
 import HeaderWishList from "./HeaderWishlist/HeaderWishList"
+
 import Category from "./Category/Category";
 import Product from "./Product/Product";
 import CartItem from "./CartItem/CartItem";
