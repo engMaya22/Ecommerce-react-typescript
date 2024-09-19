@@ -12,11 +12,17 @@ const cartPersistConfig = {
     storage,//local storage for web
     whitelist:['items'],//cash just items in cart
   }
+  
+const wishlistPersistConfig = {
+  key:'wishlist',
+  storage,
+  whitelist:['itemsId'],
+}
 const rootReducer = combineReducers({
     categories ,
     products,
     cart:persistReducer(cartPersistConfig, cart),//just save items from cart state
-    wishlist
+    wishlist:persistReducer(wishlistPersistConfig , wishlist)
     
 });
  const store = configureStore({

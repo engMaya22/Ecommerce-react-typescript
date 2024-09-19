@@ -8,25 +8,18 @@ import { useNavigate } from "react-router-dom";
 const {container , totalNum ,pumpAnimate ,iconWrapper} = styles;
 const HeaderBasket = ()=>{
     const navigate = useNavigate();
-    const totalQuantity = 0;
-    const [isAnimated , setIsAnimated] = useState(false);
-    const qunaitityStyle = `${totalNum} ${isAnimated ? pumpAnimate : ''} `
+    const items = useAppSelector(state => state.wishlist.itemsId);
+    const qunaitityStyle = `${totalNum}
 
-    // useEffect(()=>{
-    //   if(!totalQuantity)
-    //      {return;}//not animated if zero
-    //   setIsAnimated(true)
+     } `
 
-    //   const debounce = setTimeout(() => setIsAnimated(false), 300);//call set false  after  animation finised (300ms)
-    //   return ()=>clearTimeout(debounce);
-      
-    // },[totalQuantity])
+   
    
     return <div className={container} onClick={()=>navigate('/wishlist')} >
     
             <div className={iconWrapper}>
               <WishList />
-               {totalQuantity && <div className={qunaitityStyle}>{totalQuantity}</div>}
+               {items && <div className={qunaitityStyle}>{items.length}</div>}
             </div>
             <h3 >Wishlist</h3>
            </div>

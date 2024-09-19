@@ -30,18 +30,39 @@ const Product = memo(({id , title ,img ,price , max ,quantity , isLiked}:Tproduc
  },[isBtnDisabled])
 
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);//we need to specify type just in case there is more than one type
+
   const addToCartHandler =()=>{
     dispatch (addToCart(id));
     setIsBtnDisabled(true)
 
   }
   const likeToggleHandler = ()=>{
-    dispatch(actLikeToggle(id))
+    if(isLoading)
+      return;
+    setIsLoading(true);
+    dispatch(actLikeToggle(id)).unwrap()
+                                .then(()=>{
+                                 setIsLoading(false)
+                                })
+                                .catch()//if server fails
+                                .then(()=>{
+                                  setIsLoading(false)
+                                 })
+
   }
   return (
     <div className={product}>
-      <div className={wishListBtn} onClick={likeToggleHandler}>
-        {isLiked?<LikeFill />:  <Like />  }
+      <div className={wishListBtn} onClick={likeToggleHandler} >
+        {
+              isLoading? 
+                      <Spinner animation="border" variant="primary" size="sm"/>
+                       :
+
+              isLiked?
+                       <LikeFill />
+                     : <Like />  
+        }
           
            </div>
       <div className={productImg}>
