@@ -1,13 +1,13 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { Product } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hook";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { actGetProductsByCat, productsRecordCleanUp } from "@store/products/productsSlice";
 import { useParams } from "react-router-dom";
 import {Loading} from "@components/feedback"
 import { GridList, Heading } from "@components/common";
 
-const Products = () => {
+const Products = memo(() => {
   const {records , loading , error} = useAppSelector((state)=>state.products);
   const params = useParams();
   const dispatch = useAppDispatch();
@@ -48,6 +48,6 @@ const Products = () => {
       </Loading>
     </>
   );
-};
+});
 
 export default Products;
