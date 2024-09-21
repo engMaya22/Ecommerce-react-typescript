@@ -12,9 +12,11 @@ const useCategories = ()=> {
       //like products so dont fire and call api
       //every time I get the page so cash the result 
      
-      dispatch(actGetCategories())
+      const promise = dispatch(actGetCategories())
       return ()=>{
         dispatch(categoriesRecordsCleanUp());
+        promise.abort()
+
       }
      
     },[dispatch ])

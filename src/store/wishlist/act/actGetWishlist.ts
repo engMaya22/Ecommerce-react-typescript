@@ -7,11 +7,13 @@ import axios from "axios";
 
 const actGetWishlist = createAsyncThunk('/wishlist/actGetWishlist',async(_ , thunkAPI)=>{
  
-    const { fulfillWithValue , rejectWithValue} = thunkAPI;
+    const { fulfillWithValue , rejectWithValue , signal} = thunkAPI;
     type TRresponse = Tproduct[];
 
     try{
-        const userWishlist =  await axios.get<{productId:number}[]>('/wishlist?userId=1');//get products of user id
+        const userWishlist =  await axios.get<{productId:number}[]>('/wishlist?userId=1',{
+            signal
+        });//get products of user id
         if(!userWishlist.data.length)//he hasnot any item in wishlist then no need to call API
              return fulfillWithValue([]);
 

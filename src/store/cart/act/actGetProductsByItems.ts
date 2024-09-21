@@ -7,7 +7,7 @@ import axios from "axios";
 type TRresponse = Tproduct[];
 
 const actGetProductsByItems = createAsyncThunk("cart/actGetProductsByItems" , async (_, thunkAPI)=>{
-    const {rejectWithValue , fulfillWithValue , getState} = thunkAPI;
+    const {rejectWithValue , fulfillWithValue , getState , signal} = thunkAPI;
 
        const {cart} = getState() as RootState;//now I got items cart state from thunkApi without need to pass it 
         //when dispatch and save render whenver change quantity -> items by useEffect
@@ -20,7 +20,9 @@ const actGetProductsByItems = createAsyncThunk("cart/actGetProductsByItems" , as
     try{
         const concatnectedItemsId  = itemsId.map((el)=>`id=${el}`).join("&");
         // console.log(concatnectedItemsId);//id=1&id=2&id=3
-        const response = await axios.get<TRresponse>(`/products?${concatnectedItemsId}`);
+        const response = await axios.get<TRresponse>(`/products?${concatnectedItemsId}`,{
+          signal
+        });
         return response.data;
 
     }catch(error ){

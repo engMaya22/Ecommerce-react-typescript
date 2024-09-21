@@ -9,9 +9,11 @@ type TCresponse = Tcategory[];//we define the api data returned for type script
  const actGetCategories = createAsyncThunk(
     'categories/actGetCategories',
     async (_, thunkAPI) => {
-      const {rejectWithValue} = thunkAPI;
+      const {rejectWithValue , signal} = thunkAPI;
       try {
-        const response = await axios.get<TCresponse>("/categories");
+        const response = await axios.get<TCresponse>("/categories",{
+          signal
+        });
         // const data =  response.data.map(el=> el.i)
         return response.data;
       }catch(error){

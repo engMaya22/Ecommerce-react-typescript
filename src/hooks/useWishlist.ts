@@ -6,9 +6,10 @@ import { useEffect } from "react";
 const  useWishlist= ()=> {
     const dispatch = useAppDispatch();
     useEffect (()=>{
-       dispatch(actGetWishlist());
+       const promise = dispatch(actGetWishlist());
        return ()=>{
-         dispatch(productsRecordCleanUp())
+         dispatch(productsRecordCleanUp());
+         promise.abort();
        }
     },[dispatch])
 

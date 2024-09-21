@@ -19,10 +19,14 @@ const  useProducts = ()=> {
   
   
     useEffect(()=>{
-        dispatch(actGetProductsByCat(params?.prefix as string))//here I could make casting as I make guard ti sure
+      const promise = dispatch(actGetProductsByCat(params?.prefix as string))//here I could make casting as I make guard ti sure
         //in app url that the prefix is string
+
+        //cancel http request
         return ()=>{
           dispatch(productsRecordCleanUp());
+            // `createAsyncThunk` attaches an `abort()` method to the promise
+            promise.abort()
         }
   
   

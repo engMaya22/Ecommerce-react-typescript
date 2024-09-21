@@ -14,9 +14,10 @@ const  useCart = () =>{
   
     const dispatch = useAppDispatch();
     useEffect (()=>{
-      dispatch(actGetProductsByItems())
+      const promise = dispatch(actGetProductsByItems())
       return ()=>{
         dispatch(cartProductInfoCleanUp());
+        promise.abort();
       }
     },[dispatch])
   
