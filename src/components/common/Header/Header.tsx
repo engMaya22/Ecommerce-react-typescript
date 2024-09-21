@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./styles.module.css"
 import {Badge , Navbar , Container  , Nav } from "react-bootstrap"
-import HeaderLefBar from "./HeaderLefBar/HeaderLefBar";
+import HeaderLeftBar from "./HeaderLeftBar/HeaderLeftBar";
 
 
 
@@ -15,7 +15,7 @@ const Header =()=>{
                 
                 <h1 className={headerLogo}>Our <Badge bg="info">Ecomerce</Badge>
                 </h1>
-              <HeaderLefBar />
+              <HeaderLeftBar />
               
              </div>
              <Navbar expand="lg" className="bg-body-tertiary"

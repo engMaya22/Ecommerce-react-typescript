@@ -10,7 +10,6 @@ type HeaderQuantityProps = {
   to : string ,//destination route when click on icon
 }
 const HeaderCounter = ({totalQuantity ,svgIcon ,to , title}:HeaderQuantityProps)=>{
-  console.log('test');
     const navigate = useNavigate();
     const [isAnimated , setIsAnimated] = useState(false);
     const qunaitityStyle = `${totalNum} ${isAnimated ? pumpAnimate : ''} `

@@ -7,7 +7,7 @@ import styles from "./styles.module.css"
 import HeaderCounter from "../HeaderCounter/HeaderCounter";
 const {headerLeftBar} = styles;
 
-const HeaderLefBar=()=> {
+const HeaderLeftBar=()=> {
   const wishlisttotalQuantity = useAppSelector(state => state.wishlist.itemsId.length);
   const cartTotalQuantity = useAppSelector(getCartTotalQuantity)
   return (
@@ -18,4 +18,4 @@ const HeaderLefBar=()=> {
 
   )
 }
-export default HeaderLefBar;
+export default HeaderLeftBar;
