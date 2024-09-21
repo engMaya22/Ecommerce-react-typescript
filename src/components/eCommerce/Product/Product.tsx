@@ -1,6 +1,6 @@
 import { Button, Spinner } from "react-bootstrap";
 import styles from "./styles.module.css";
-import { Tproduct } from "@customTypes/product";
+import { Tproduct } from "@types";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@store/cart/cartSlice";
 import { memo, useEffect, useState } from "react";

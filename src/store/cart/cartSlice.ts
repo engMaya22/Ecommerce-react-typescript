@@ -1,7 +1,6 @@
 import {  createSlice } from "@reduxjs/toolkit";
-import { Tproduct } from "@customTypes/product";
+import { Tproduct ,TLoading } from "@types";
 import actGetProductsByItems from "./act/actGetProductsByItems";
-import { TLoading } from "@customTypes/shared";
 
 interface IcartInterface {
     items:{[key:string]:number};//key is id elmenet with number of items -- index signature

@@ -1,5 +1,5 @@
 
-import { TLoading } from "@customTypes/shared";
+import { TLoading } from "@types";
 
 
 interface LoadingProps {

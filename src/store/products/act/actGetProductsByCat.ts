@@ -1,4 +1,4 @@
-import { Tproduct } from "@customTypes/product";
+import { Tproduct } from "@types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import AxiosErrorHandler from "@utils/AxiosErrorHandler";
 

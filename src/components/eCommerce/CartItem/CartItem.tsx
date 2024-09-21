@@ -1,6 +1,6 @@
 import { Form, Button } from "react-bootstrap";
 import styles from "./styles.module.css";
-import { Tproduct } from "@customTypes/product";
+import { Tproduct } from "@types";
 import { memo, useCallback } from "react";
 import { useAppDispatch } from "@store/hook";
 import { removeCartItem } from "@store/cart/cartSlice";

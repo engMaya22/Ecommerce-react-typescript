@@ -1,4 +1,4 @@
-import { Tproduct } from "@customTypes/product";
+import { Tproduct } from "@types";
 import CartItem from "../CartItem/CartItem";
 type CartItemListProps = {
     products :Tproduct[];

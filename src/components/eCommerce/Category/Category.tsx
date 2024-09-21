@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import { Tcategory } from "@customTypes/category";
+import { Tcategory } from "@types";
 const { category, categoryImg, categoryTitle } = styles;
 // interface IProps {
 //   title:string,

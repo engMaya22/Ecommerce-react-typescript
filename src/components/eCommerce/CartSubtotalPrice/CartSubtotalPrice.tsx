@@ -1,4 +1,4 @@
-import { Tproduct } from "@customTypes/product";
+import { Tproduct } from "@types";
 import styles from "./styles.module.css"
 
 type CartSubTotalPriceProps ={
