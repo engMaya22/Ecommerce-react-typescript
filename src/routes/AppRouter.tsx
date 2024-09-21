@@ -2,46 +2,50 @@
 import MainLayout from "@layouts/MainLayout/MainLayout"
 
 
-//pages
-import Home from "@pages/Home"
-import Categories from "@pages/Categories"
-import Products from "@pages/Products"
-import About from "@pages/AboutUs"
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Login from "@pages/Login"
-import Register from "@pages/Register"
-import Error from "@pages/Error"
-import Cart from "@pages/Cart"
-import WishList from "@pages/WishList"
+import { lazy, Suspense } from "react"
+
+//pages
+const Home = lazy(()=>import("@pages/Home"))
+const Categories = lazy(()=>import("@pages/Categories"))
+const Products = lazy(()=>import("@pages/Products"))
+const About = lazy(()=>import("@pages/AboutUs"))
+const Cart = lazy(()=>import("@pages/Cart"))
+const WishList = lazy(()=>import("@pages/WishList"))
+const Login = lazy(()=>import("@pages/Login"))
+const Register = lazy(()=>import("@pages/Register"))
+const Error = lazy(()=>import("@pages/Error"))
+
+
 export default function AppRouter() {
     const router = createBrowserRouter([{
         path:"/",
         element: <MainLayout />,
-        errorElement: <Error/>,
+        errorElement: <Suspense fallback="laoding please wait ..">  <Error/> </Suspense>,
         children:[
           {
             index:true,
-            element:<Home />
+            element: <Suspense fallback="laoding please wait .."> <Home /> </Suspense> 
           },
           {
             path:"about-us",
-            element : <About />
+            element : <Suspense fallback="laoding please wait ..">  <About /> </Suspense>
           },
           {
             path:"login",
-            element : <Login />
+            element : <Suspense fallback="laoding please wait ..">  <Login /> </Suspense>
           },
           {
             path:"register",
-            element : <Register />
+            element :  <Suspense fallback="laoding please wait ..">  <Register /> </Suspense>
           },
           {
             path:"categories",
-            element : <Categories />
+            element : <Suspense fallback="laoding please wait ..">  <Categories /></Suspense>
           },
           {
             path:"categories/products/:prefix",
-            element : <Products />,
+            element : <Suspense fallback="laoding please wait ..">  <Products /> </Suspense>,
             loader:(({params})=>{
               if (
                 // this guard by type to insure the define and string type
@@ -59,11 +63,11 @@ export default function AppRouter() {
           },
           {
             path:"/cart",
-            element : <Cart />
+            element : <Suspense fallback="laoding please wait ..">  <Cart /> </Suspense>
           },
           {
             path:"/wishlist",
-            element : <WishList />
+            element : <Suspense fallback="laoding please wait ..">  <WishList /> </Suspense>
           },
         ]
     }])

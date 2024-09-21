@@ -13,7 +13,7 @@ const Header =()=>{
     return <header>
              <div className={headerContainer}>
                 
-                <h1 className={headerLogo}>Our <Badge bg="info">Ecomerce</Badge>
+                <h1 className={headerLogo}>Our <Badge bg="info">eCom</Badge>
                 </h1>
               <HeaderLeftBar />
               
