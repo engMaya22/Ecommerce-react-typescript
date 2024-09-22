@@ -1,6 +1,6 @@
 import {  createSlice } from "@reduxjs/toolkit";
 import actGetProductsByCat from "./act/actGetProductsByCat";
-import { Tproduct ,TLoading } from "@types";
+import { Tproduct ,TLoading, isString } from "@types";
 
 interface ICategoriesState {
     records: Tproduct[],//array or objects
@@ -39,10 +39,7 @@ const initialState:ICategoriesState = {
         builder.addCase(actGetProductsByCat.rejected, (state, action) => {
             state.loading = 'failed';
             // 
-            if (
-                // this guard by type to insure the define and string type
-                action.payload &&
-                typeof action.payload === "string" )
+            if (isString(action.payload))
              {
                 state.error =  action.payload;
 
