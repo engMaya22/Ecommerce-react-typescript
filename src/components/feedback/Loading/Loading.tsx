@@ -13,7 +13,8 @@ interface LoadingProps {
     status : TLoading,
     error:string | null,
     children:React.ReactNode,
-    type?:'product'|'category'|'cart'//to add skelton dynamicaly basd on type
+  //  type?:'product'|'category'|'cart'//to add skelton dynamicaly basd on type it is better to write instead : 
+    type?: keyof typeof skeletonTypes //type of make skeletonTypes as a type , then use keyof to get keys of this type
 }
 export default function Loading
      ({status , error ,children , type ='category'}:LoadingProps){//default is category
