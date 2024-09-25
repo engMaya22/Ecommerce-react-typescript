@@ -9,7 +9,8 @@ const WishList = ()=>{
             <Heading title="Your Wishlist" />
             <Loading error={error}  status={loading} type="product">
                <GridList records={records} 
-                          renderItem={(record)=><Product {...record} />}
+                emptyMessage="Your wishlist is empty"
+                renderItem={(record)=><Product {...record} />}
                 />
                 
            </Loading>

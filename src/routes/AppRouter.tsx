@@ -3,8 +3,9 @@ import MainLayout from "@layouts/MainLayout/MainLayout"
 
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { lazy, Suspense } from "react"
-
+import { lazy } from "react"
+import Error from "@pages/Error";
+import { LottieHandler, PageSuspense } from "@components/feedback";
 //pages
 const Home = lazy(()=>import("@pages/Home"))
 const Categories = lazy(()=>import("@pages/Categories"))
@@ -14,42 +15,38 @@ const Cart = lazy(()=>import("@pages/Cart"))
 const WishList = lazy(()=>import("@pages/WishList"))
 const Login = lazy(()=>import("@pages/Login"))
 const Register = lazy(()=>import("@pages/Register"))
-const Error = lazy(()=>import("@pages/Error"))
 
 
 export default function AppRouter() {
     const router = createBrowserRouter([{
         path:"/",
         element: <MainLayout />,
-        errorElement: <Suspense
-         fallback="laoding please wait .."
-         >  <Error/> </Suspense>,
+        errorElement:   <Error/> ,
         children:[
           {
             index:true,
-            element: <Suspense fallback="laoding please wait .."> <Home /> </Suspense> 
+            element: <PageSuspense  > <Home />  </PageSuspense>
           },
           {
             path:"about-us",
-            element : <Suspense fallback="laoding please wait ..">  <About /> </Suspense>
+            element : <PageSuspense  >  <About /> </PageSuspense>
           },
           {
             path:"login",
-            element : <Suspense fallback="laoding please wait ..">  <Login /> </Suspense>
+            element : <PageSuspense  >  <Login />  </PageSuspense>
           },
           {
             path:"register",
-            element :  <Suspense fallback="laoding please wait ..">  <Register /> </Suspense>
+            element :  <PageSuspense  >  <Register />  </PageSuspense>
           },
           {
             path:"categories",
-            element : <Suspense fallback="laoding please wait ..">  <Categories /></Suspense>
+            element : <PageSuspense  >  <Categories /> </PageSuspense>
           },
           {
             path:"categories/products/:prefix",
-            element : <Suspense
-            //  fallback="laoding please wait .."
-             >  <Products /> </Suspense>,
+            element : <PageSuspense  >
+              <Products />  </PageSuspense>,
             loader:(({params})=>{
               if (
                 // this guard by type to insure the define and string type
@@ -67,15 +64,12 @@ export default function AppRouter() {
           },
           {
             path:"/cart",
-            element : <Suspense 
-            // fallback="laoding please wait .."
-            >  <Cart /> </Suspense>
+            element : <PageSuspense  > <Cart /> </PageSuspense>
           },
           {
             path:"/wishlist",
-            element : <Suspense
-            //  fallback="laoding please wait .."
-             >  <WishList /> </Suspense>
+            element : <PageSuspense  >
+              <WishList /> </PageSuspense>
           },
         ]
     }])
