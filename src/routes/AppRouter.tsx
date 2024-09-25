@@ -3,7 +3,7 @@ import MainLayout from "@layouts/MainLayout/MainLayout"
 
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { lazy } from "react"
+import { lazy, Suspense } from "react"
 import Error from "@pages/Error";
 import { LottieHandler, PageSuspense } from "@components/feedback";
 //pages
@@ -20,7 +20,14 @@ const Register = lazy(()=>import("@pages/Register"))
 export default function AppRouter() {
     const router = createBrowserRouter([{
         path:"/",
-        element: <MainLayout />,
+        element:  <Suspense
+                        fallback={
+                          <div style={{ marginTop: "10%" }}>
+                            <LottieHandler type="loading" message="Loading please wait..." />
+                          </div>
+                        }>
+                     <MainLayout />
+                </Suspense>,
         errorElement:   <Error/> ,
         children:[
           {
