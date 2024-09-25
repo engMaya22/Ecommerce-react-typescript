@@ -21,7 +21,9 @@ export default function AppRouter() {
     const router = createBrowserRouter([{
         path:"/",
         element: <MainLayout />,
-        errorElement: <Suspense fallback="laoding please wait ..">  <Error/> </Suspense>,
+        errorElement: <Suspense
+         fallback="laoding please wait .."
+         >  <Error/> </Suspense>,
         children:[
           {
             index:true,
@@ -45,7 +47,9 @@ export default function AppRouter() {
           },
           {
             path:"categories/products/:prefix",
-            element : <Suspense fallback="laoding please wait ..">  <Products /> </Suspense>,
+            element : <Suspense
+            //  fallback="laoding please wait .."
+             >  <Products /> </Suspense>,
             loader:(({params})=>{
               if (
                 // this guard by type to insure the define and string type
@@ -63,11 +67,15 @@ export default function AppRouter() {
           },
           {
             path:"/cart",
-            element : <Suspense fallback="laoding please wait ..">  <Cart /> </Suspense>
+            element : <Suspense 
+            // fallback="laoding please wait .."
+            >  <Cart /> </Suspense>
           },
           {
             path:"/wishlist",
-            element : <Suspense fallback="laoding please wait ..">  <WishList /> </Suspense>
+            element : <Suspense
+            //  fallback="laoding please wait .."
+             >  <WishList /> </Suspense>
           },
         ]
     }])

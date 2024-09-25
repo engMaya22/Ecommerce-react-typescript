@@ -11,7 +11,7 @@ const Products = memo(() => {
   return (
     <>
     <Heading title={`${paramsPrefix?.toUpperCase()} Products`} />
-      <Loading error={error}  status={loading} >
+      <Loading error={error}  status={loading} type="product" >
       <GridList records={productsFullInfo} 
                           renderItem={(record)=><Product {...record} />}
                 />

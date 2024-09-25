@@ -13,7 +13,7 @@ type HasId = {
  const  GridList = <T extends HasId>({records , renderItem}:GridListProps<T >) =>{
 
     const dataList = records.length > 0 ? records.map((record)=>(
-        <Col key={record.id}   xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
+        <Col key={record.id}   sx={3} className="d-flex justify-content-center mb-5 mt-2">
           {renderItem(record)}
           {/* this function return component  */}
         </Col>

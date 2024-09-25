@@ -7,7 +7,7 @@ const WishList = ()=>{
   const {error , records , loading} = useWishlist();
     return <>
             <Heading title="Your Wishlist" />
-            <Loading error={error}  status={loading} >
+            <Loading error={error}  status={loading} type="product">
                <GridList records={records} 
                           renderItem={(record)=><Product {...record} />}
                 />
