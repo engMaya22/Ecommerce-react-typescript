@@ -1,17 +1,20 @@
 
 import { Heading } from "@components/common";
+import { Input } from "@components/Form/Index";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signInSchema, signInType } from "@validations/signInSchema ";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 
-interface IFormInput {
-  email: string,
-  password: string,
 
-}
 export default function Login() {
-  const { register, handleSubmit } = useForm<IFormInput>()
-  const submitForm: SubmitHandler<IFormInput> = (data) => console.log(data)
+
+  const { register, handleSubmit , formState: { errors }} = useForm<signInType>({
+    mode:"onBlur",//to  realtime validate
+    resolver: zodResolver(signInSchema), // Apply the zodResolver
+  });
+  const submitForm: SubmitHandler<signInType> = (data) => console.log(data)
 
   return (
     <>
@@ -20,15 +23,9 @@ export default function Login() {
           <Col md={{span:6 , offset:3}}>
             <Form onSubmit={handleSubmit(submitForm)}>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="text"  {...register("email")}/>
-            </Form.Group>
+            <Input label="Email address" name="email" register={register} error={errors.email?.message}/>
+            <Input label="Password" type="password" name="password" register={register} error={errors.password?.message}/>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password"   {...register("password")}/>
-            </Form.Group>
             
             <Button variant="info" type="submit" style={{color:"white"}}>
               Submit

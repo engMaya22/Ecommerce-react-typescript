@@ -26,8 +26,7 @@ export default function Registeration() {
                          {errors.firstName?.message }
                       </Form.Control.Feedback>
                   </Form.Group> */}
-                 <Input label="Last name" name="lastName" register={register} error={errors.lastName?.message}/>
-
+                <Input label="Last name" name="lastName" register={register} error={errors.lastName?.message}/>
                 <Input label="Email address" name="email" register={register} error={errors.email?.message}/>
 
                 <Input label="Password" type="password" name="password" register={register} error={errors.password?.message}/>
