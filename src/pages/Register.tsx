@@ -4,14 +4,33 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema ,signUpType } from "@validations/signUpSchema";
 import { Input } from "@components/Form/Index";
+import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
 
 
 export default function Registeration() {
-  const { register, handleSubmit , formState: { errors }} = useForm<signUpType>({
+  const  {checkEmailAvailability , emailAvailabilityStatus , enteredEmail , resetcheckEmailAvailability}  = useCheckEmailAvailability();
+
+  const { register, handleSubmit , formState: { errors } , getFieldState ,trigger} = useForm<signUpType>({
     mode:"onBlur",//to  realtime validate
     resolver: zodResolver(signUpSchema), // Apply the zodResolver
   });
-  const submitForm: SubmitHandler<signUpType> = (data) => console.log(data)
+  const submitForm: SubmitHandler<signUpType> = (data) => {
+    console.log(data)
+  } 
+  const onBlurHandler = async(e:React.FocusEvent<HTMLInputElement>)=>{
+    await trigger('email');//need it to have correct invalid value from first time
+    const value = e.target.value;
+    const { isDirty , invalid} = getFieldState("email")//we are listening to email
+    if(isDirty && !invalid && value !== enteredEmail){
+      checkEmailAvailability(value);
+      
+    }
+    //enteredEmail is a previous email state
+    if(isDirty && invalid && enteredEmail ){
+      resetcheckEmailAvailability();
+    }
+
+  }
   return (
           <>
             <Heading title="User Register"/>
@@ -27,14 +46,31 @@ export default function Registeration() {
                       </Form.Control.Feedback>
                   </Form.Group> */}
                 <Input label="Last name" name="lastName" register={register} error={errors.lastName?.message}/>
-                <Input label="Email address" name="email" register={register} error={errors.email?.message}/>
+                <Input label="Email address" 
+                       name="email" 
+                       register={register}
+                       error={errors.email?.message ? errors.email?.message
+                                                    : emailAvailabilityStatus == "notAvailable" 
+                                                    ? "The email in use" 
+                                                    : emailAvailabilityStatus == "failed" 
+                                                    ?  "Error from the server"
+                                                    :   ""
+                                  }
+                       onBlur={onBlurHandler} 
+                       formText ={emailAvailabilityStatus == "checking" ? 
+                                                                         "We're currently checking the availability of this email address. Please wait a moment."
+                                                                        : "" }
+                        success = {emailAvailabilityStatus == "available" ? "The email is avaiable to use" : ""}
+                        disabled = {emailAvailabilityStatus === "checking"}
+                         
+                         />
 
                 <Input label="Password" type="password" name="password" register={register} error={errors.password?.message}/>
                 <Input label="Confirm password" type="password" name="confirmPassword" register={register} error={errors.confirmPassword?.message}/>
 
               
         
-                <Button variant="info" type="submit" style={{color:"white"}}>
+                <Button variant="info" type="submit" style={{color:"white"}} disabled = {emailAvailabilityStatus === "checking"}>
                   Submit
                 </Button>
                   </Form>
