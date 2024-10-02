@@ -7,9 +7,11 @@ import { Input } from "@components/Form/Index";
 import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { actAuthRegister } from "@store/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Registeration() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {loading , error} = useAppSelector((state) => state.auth);
   const  {checkEmailAvailability , emailAvailabilityStatus , enteredEmail , resetcheckEmailAvailability}  = useCheckEmailAvailability();
@@ -18,10 +20,13 @@ export default function Registeration() {
     mode:"onBlur",//to  realtime validate
     resolver: zodResolver(signUpSchema), // Apply the zodResolver to link useForm with submitForm
   });
-  const submitForm: SubmitHandler<signUpType> = (data) => {
+  const submitForm: SubmitHandler<signUpType> = async(data) => {//async to ensure that navigate when finish register
     const {firstName , lastName , email , password } = data;
-    dispatch (actAuthRegister( {firstName , lastName , email , password }))
-    // console.log(data)
+    dispatch (actAuthRegister( {firstName , lastName , email , password }))//we need to save just this  data
+    .unwrap()
+    .then(()=>{
+      navigate("/login?message=account_created")
+    })
   } 
   const onBlurHandler = async(e:React.FocusEvent<HTMLInputElement>)=>{
     await trigger('email');//need it to have correct invalid value from the first time
