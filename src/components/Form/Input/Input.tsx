@@ -18,7 +18,7 @@ type InputProps<TFieldValue extends FieldValues> = {
 
 const Input =<TFieldValue extends FieldValues>({
     label ,
-    type = 'text' ,
+    type = 'text' ,//default
     register , 
     name , 
     error,
