@@ -6,13 +6,19 @@ import { signUpSchema ,signUpType } from "@validations/signUpSchema";
 import { Input } from "@components/Form/Index";
 import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
 import { useAppDispatch, useAppSelector } from "@store/hook";
-import { actAuthRegister } from "@store/auth/authSlice";
+import { actAuthRegister, resetUI } from "@store/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
 export default function Registeration() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  useEffect(()=>{
+    return ()=>{
+      dispatch(resetUI())
+    }
+  } , [dispatch])
   const {loading , error} = useAppSelector((state) => state.auth);
   const  {checkEmailAvailability , emailAvailabilityStatus , enteredEmail , resetcheckEmailAvailability}  = useCheckEmailAvailability();
 

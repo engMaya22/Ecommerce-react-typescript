@@ -24,7 +24,12 @@ const initialState :IAuthState= {
 const authSlice = createSlice({
     name:'auth',
     initialState,
-    reducers :{},
+    reducers :{
+        resetUI : (state)=>{
+            state.error = null;
+            state.loading = 'idle';
+        }
+    },
     extraReducers :(builder)=>{
         //register
         builder.addCase(actAuthRegister.pending , (state)=>{
@@ -41,7 +46,7 @@ const authSlice = createSlice({
          if(isString(action.payload)){
             state.error = action.payload
          }
-
+        
         })
 
          //login
@@ -69,5 +74,6 @@ const authSlice = createSlice({
 
 });
 
-export {actAuthRegister , actAuthLogin}
+export {actAuthRegister , actAuthLogin }//extra reducer
+export const {resetUI} = authSlice.actions;//reducer
 export default authSlice.reducer;

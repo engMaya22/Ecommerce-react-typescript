@@ -2,9 +2,10 @@
 import { Heading } from "@components/common";
 import { Input } from "@components/Form/Index";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { actAuthLogin } from "@store/auth/authSlice";
+import { actAuthLogin, resetUI } from "@store/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { signInSchema, signInType } from "@validations/signInSchema ";
+import { useEffect } from "react";
 import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -14,6 +15,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 export default function Login() {
 
   const dispatch = useAppDispatch();
+  useEffect(()=>{
+    return ()=>{
+      dispatch(resetUI())
+    }
+  } , [dispatch])
   const navigate = useNavigate();
   const {error , loading} = useAppSelector(state => state.auth);
   const [searchParams , setSearchParams] = useSearchParams();
