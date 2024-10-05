@@ -1,15 +1,18 @@
 import { NavLink } from "react-router-dom";
 import styles from "./styles.module.css"
-import {Badge , Navbar , Container  , Nav } from "react-bootstrap"
+import {Badge , Navbar , Container  , Nav, NavDropdown } from "react-bootstrap"
 import HeaderLeftBar from "./HeaderLeftBar/HeaderLeftBar";
+import { useAppDispatch, useAppSelector } from "@store/hook";
+import { logout } from "@store/auth/authSlice";
 
 
 
 
 const {headerContainer , headerLogo  } = styles;
-const Header =()=>{
-;
 
+const Header =()=>{
+    const  {accessToken ,user} = useAppSelector(state =>state.auth)
+    const dispatch = useAppDispatch();
     return <header>
              <div className={headerContainer}>
                 
@@ -31,8 +34,28 @@ const Header =()=>{
 
                         </Nav>
                         <Nav >
-                            <Nav.Link as={NavLink} to="login">Login</Nav.Link>
-                            <Nav.Link as={NavLink} to="register">Register</Nav.Link>
+                          {!accessToken ? 
+                                    <>
+                                    <Nav.Link as={NavLink} to="login">Login</Nav.Link>
+                                    <Nav.Link as={NavLink} to="register">Register</Nav.Link>
+                                    </>
+                                    :
+                                    <NavDropdown title={`Welcome ${user?.firstName} ${user?.lastName}`} id="basic-nav-dropdown">
+                                        <NavDropdown.Item>Profile</NavDropdown.Item>
+                                        <NavDropdown.Item >Orders</NavDropdown.Item>
+                                        <NavDropdown.Divider />
+                                        <NavDropdown.Item 
+                                           as={NavLink}
+                                           to="/"
+                                           onClick={()=>dispatch(logout())}>
+                                           Logout
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
+                                    
+                                  
+                                       
+                                       
+                           }
 
                         </Nav>
                         </Navbar.Collapse>
