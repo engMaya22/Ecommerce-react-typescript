@@ -1,9 +1,11 @@
+import {useEffect} from "react"
 import { NavLink } from "react-router-dom";
 import styles from "./styles.module.css"
 import {Badge , Navbar , Container  , Nav, NavDropdown } from "react-bootstrap"
 import HeaderLeftBar from "./HeaderLeftBar/HeaderLeftBar";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { logout } from "@store/auth/authSlice";
+import { actGetWishlist } from "@store/wishlist/wishlistSlice";
 
 
 
@@ -11,8 +13,14 @@ import { logout } from "@store/auth/authSlice";
 const {headerContainer , headerLogo  } = styles;
 
 const Header =()=>{
-    const  {accessToken ,user} = useAppSelector(state =>state.auth)
     const dispatch = useAppDispatch();
+    const  {accessToken ,user} = useAppSelector(state =>state.auth);
+    useEffect(()=>{
+            if(accessToken){
+                dispatch( actGetWishlist("productIds"))
+            }
+        
+     },[dispatch , accessToken]);
     return <header>
              <div className={headerContainer}>
                 

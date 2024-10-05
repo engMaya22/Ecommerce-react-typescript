@@ -11,7 +11,6 @@ const { product, productImg ,maximumNotice ,wishListBtn} = styles;
 
 
 const Product = memo(({id , title ,img ,price , max ,quantity , isLiked}:Tproduct) => {
-  console.log('product render');
   const currentRemainQuantity = max - (quantity?? 0);//if no quantity added from product make it zero 
   const quantityReachedMax = currentRemainQuantity == 0 ? true :false;
  const [isBtnDisabled, setIsBtnDisabled] = useState(false);

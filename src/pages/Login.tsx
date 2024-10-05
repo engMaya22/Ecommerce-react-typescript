@@ -31,6 +31,7 @@ export default function Login() {
   const submitForm: SubmitHandler<signInType> = async(data) => {
     if(searchParams.get('message')){
       setSearchParams('');
+      
     }
     dispatch(actAuthLogin(data))
     .unwrap()
