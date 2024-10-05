@@ -1,44 +1,15 @@
 
 import { Heading } from "@components/common";
 import { Input } from "@components/Form/Index";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { actAuthLogin, resetUI } from "@store/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "@store/hook";
-import { signInSchema, signInType } from "@validations/signInSchema ";
-import { useEffect } from "react";
-import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate, useSearchParams ,Navigate } from "react-router-dom";
+import { Col, Row } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
+import { Alert, Button, Form, Spinner } from "react-bootstrap";
+import useLogin from "@hooks/useLogin";
 
 
 
 export default function Login() {
-  const {accessToken} = useAppSelector(state => state.auth);
-  const dispatch = useAppDispatch();
-  useEffect(()=>{
-    return ()=>{
-      dispatch(resetUI())
-    }
-  } , [dispatch])
-  const navigate = useNavigate();
-  const {error , loading} = useAppSelector(state => state.auth);
-  const [searchParams , setSearchParams] = useSearchParams();
-
-  const { register, handleSubmit , formState: { errors }} = useForm<signInType>({
-    mode:"onBlur",//to  realtime validate
-    resolver: zodResolver(signInSchema), // Apply the zodResolver
-  });
-  const submitForm: SubmitHandler<signInType> = async(data) => {
-    if(searchParams.get('message')){
-      setSearchParams('');
-      
-    }
-    dispatch(actAuthLogin(data))
-    .unwrap()
-    .then(()=>{
-      navigate("/")
-    });
-  }
+  const { accessToken, searchParams ,handleSubmit ,submitForm , register , error , formErrors , loading} = useLogin();
   if(accessToken){
     return <Navigate to="/" />
     //This way it redirect to home page if I try to add login route from browser 
@@ -55,8 +26,8 @@ export default function Login() {
 
             <Form onSubmit={handleSubmit(submitForm)}>
 
-            <Input label="Email address" name="email" register={register} error={errors.email?.message}/>
-            <Input label="Password" type="password" name="password" register={register} error={errors.password?.message}/>
+            <Input label="Email address" name="email" register={register} error={formErrors.email?.message}/>
+            <Input label="Password" type="password" name="password" register={register} error={formErrors.password?.message}/>
 
             
             <Button variant="info" type="submit" style={{color:"white"}}>

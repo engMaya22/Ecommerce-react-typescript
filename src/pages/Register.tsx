@@ -1,56 +1,16 @@
 import { Heading } from "@components/common";
 import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema ,signUpType } from "@validations/signUpSchema";
 import { Input } from "@components/Form/Index";
-import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
-import { useAppDispatch, useAppSelector } from "@store/hook";
-import { actAuthRegister, resetUI } from "@store/auth/authSlice";
-import { useNavigate ,Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import useRegister from "@hooks/useRegister";
 
 
 export default function Registeration() {
 
-  const {accessToken} = useAppSelector(state => state.auth);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  useEffect(()=>{
-    return ()=>{
-      dispatch(resetUI())
-    }
-  } , [dispatch])
-  const {loading , error} = useAppSelector((state) => state.auth);
-  const  {checkEmailAvailability , emailAvailabilityStatus , enteredEmail , resetcheckEmailAvailability}  = useCheckEmailAvailability();
+  const { accessToken ,loading , error  ,
+            emailAvailabilityStatus ,
+            register, handleSubmit  , formErrors ,onBlurHandler ,submitForm} = useRegister();
 
-  const { register, handleSubmit , formState: { errors } , getFieldState ,trigger} = useForm<signUpType>({
-    mode:"onBlur",//to  realtime validate
-    resolver: zodResolver(signUpSchema), // Apply the zodResolver to link useForm with submitForm
-  });
-  const submitForm: SubmitHandler<signUpType> = async(data) => {//async to ensure that navigate when finish register
-    const {firstName , lastName , email , password } = data;
-    dispatch (actAuthRegister( {firstName , lastName , email , password }))//we need to save just this  data
-    .unwrap()
-    .then(()=>{
-      navigate("/login?message=account_created")
-    })
-  } 
-  const onBlurHandler = async(e:React.FocusEvent<HTMLInputElement>)=>{
-    await trigger('email');//need it to have correct invalid value from the first time
-    const value = e.target.value;
-    const { isDirty , invalid} = getFieldState("email")//we are listening to email
-    if(isDirty && !invalid &&
-       value !== enteredEmail){// if inter same old value direct again  then no need to check 
-      checkEmailAvailability(value);
-      
-    }
-    //enteredEmail is a previous email state
-    if(isDirty && invalid && enteredEmail ){//needed when add valid email then 123 then same valid email
-      resetcheckEmailAvailability();
-    }
-
-  }
   if(accessToken){
     return <Navigate to="/" />
     // This way it redirect to home page if I try to add register route from browser 
@@ -61,7 +21,7 @@ export default function Registeration() {
             <Row>
               <Col md={{span:6 , offset:3}}>
                 <Form onSubmit={handleSubmit(submitForm)}>
-                 <Input label="First name" name="firstName" register={register} error={errors.firstName?.message}/>
+                 <Input label="First name" name="firstName" register={register} error={formErrors.firstName?.message}/>
                   {/* <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>First name </Form.Label>
                       <Form.Control type="text" {...register("firstName")} isInvalid={errors.firstName?.message ? true : false} />
@@ -69,11 +29,11 @@ export default function Registeration() {
                          {errors.firstName?.message }
                       </Form.Control.Feedback>
                   </Form.Group> */}
-                <Input label="Last name" name="lastName" register={register} error={errors.lastName?.message}/>
+                <Input label="Last name" name="lastName" register={register} error={formErrors.lastName?.message}/>
                 <Input label="Email address" 
                        name="email" 
                        register={register}
-                       error={errors.email?.message ? errors.email?.message //validation
+                       error={formErrors.email?.message ? formErrors.email?.message //validation
                                                     : emailAvailabilityStatus == "notAvailable" 
                                                     ? "The email in use" 
                                                     : emailAvailabilityStatus == "failed" 
@@ -89,8 +49,8 @@ export default function Registeration() {
                          
                          />
 
-                <Input label="Password" type="password" name="password" register={register} error={errors.password?.message}/>
-                <Input label="Confirm password" type="password" name="confirmPassword" register={register} error={errors.confirmPassword?.message}/>
+                <Input label="Password" type="password" name="password" register={register} error={formErrors.password?.message}/>
+                <Input label="Confirm password" type="password" name="confirmPassword" register={register} error={formErrors.confirmPassword?.message}/>
 
               
         
