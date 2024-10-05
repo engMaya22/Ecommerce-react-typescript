@@ -7,11 +7,13 @@ import { Input } from "@components/Form/Index";
 import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { actAuthRegister, resetUI } from "@store/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
 
 export default function Registeration() {
+
+  const {accessToken} = useAppSelector(state => state.auth);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   useEffect(()=>{
@@ -48,6 +50,10 @@ export default function Registeration() {
       resetcheckEmailAvailability();
     }
 
+  }
+  if(accessToken){
+    return <Navigate to="/" />
+    // This way it redirect to home page if I try to add register route from browser 
   }
   return (
           <>

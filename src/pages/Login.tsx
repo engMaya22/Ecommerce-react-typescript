@@ -8,12 +8,12 @@ import { signInSchema, signInType } from "@validations/signInSchema ";
 import { useEffect } from "react";
 import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams ,Navigate } from "react-router-dom";
 
 
 
 export default function Login() {
-
+  const {accessToken} = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
   useEffect(()=>{
     return ()=>{
@@ -23,6 +23,7 @@ export default function Login() {
   const navigate = useNavigate();
   const {error , loading} = useAppSelector(state => state.auth);
   const [searchParams , setSearchParams] = useSearchParams();
+
   const { register, handleSubmit , formState: { errors }} = useForm<signInType>({
     mode:"onBlur",//to  realtime validate
     resolver: zodResolver(signInSchema), // Apply the zodResolver
@@ -37,6 +38,10 @@ export default function Login() {
       navigate("/")
     });
   }
+  if(accessToken){
+    return <Navigate to="/" />
+    //This way it redirect to home page if I try to add login route from browser 
+  }
 
   return (
     <>
@@ -44,6 +49,9 @@ export default function Login() {
         <Row>
           <Col md={{span:6 , offset:3}}>
             {searchParams.get('message') === "account_created" && ( <Alert variant="success"> Your account successfully created please login</Alert>)}
+            
+            {searchParams.get('message') === "login_required" && ( <Alert variant="success"> Your login to view this content</Alert>)}
+
             <Form onSubmit={handleSubmit(submitForm)}>
 
             <Input label="Email address" name="email" register={register} error={errors.email?.message}/>

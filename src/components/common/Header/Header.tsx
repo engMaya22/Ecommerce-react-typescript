@@ -41,7 +41,10 @@ const Header =()=>{
                                     </>
                                     :
                                     <NavDropdown title={`Welcome ${user?.firstName} ${user?.lastName}`} id="basic-nav-dropdown">
-                                        <NavDropdown.Item>Profile</NavDropdown.Item>
+                                        <NavDropdown.Item 
+                                          as={NavLink}
+                                          to="/profile"
+                                        >Profile</NavDropdown.Item>
                                         <NavDropdown.Item >Orders</NavDropdown.Item>
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item 

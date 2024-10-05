@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { lazy, Suspense } from "react"
 import Error from "@pages/Error";
 import { LottieHandler, PageSuspense } from "@components/feedback";
+import Profile from "@pages/Profile";
+import ProtectedRoute from "@components/Auth/ProtectedRoute";
 //pages
 const Home = lazy(()=>import("@pages/Home"))
 const Categories = lazy(()=>import("@pages/Categories"))
@@ -43,6 +45,10 @@ export default function AppRouter() {
             element : <PageSuspense  >  <Login />  </PageSuspense>
           },
           {
+             path:"profile",
+             element :  <ProtectedRoute> <PageSuspense  > <Profile /> </PageSuspense> </ProtectedRoute> 
+          },
+          {
             path:"register",
             element :  <PageSuspense  >  <Register />  </PageSuspense>
           },
@@ -75,8 +81,13 @@ export default function AppRouter() {
           },
           {
             path:"/wishlist",
-            element : <PageSuspense  >
-              <WishList /> </PageSuspense>
+            element :  <ProtectedRoute>
+                        <PageSuspense  >
+                        <WishList /> 
+                        </PageSuspense>
+                      </ProtectedRoute>
+            
+            
           },
         ]
     }])
