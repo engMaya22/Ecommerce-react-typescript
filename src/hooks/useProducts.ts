@@ -5,6 +5,8 @@ import { actGetProductsByCat, productsRecordCleanUp } from "@store/products/prod
 import { useParams } from "react-router-dom";
 const  useProducts = ()=> {
     const {records , loading , error} = useAppSelector((state)=>state.products);
+    const {accessToken} = useAppSelector(state => state.auth)
+
     const params = useParams();
     const paramsPrefix = params.prefix;
     const dispatch = useAppDispatch();
@@ -14,7 +16,8 @@ const  useProducts = ()=> {
       ...el ,
       quantity:cartItems[el.id] || 0 ,//we added current quantity to each item if no quantity it is zero
       //which is value of cartItems array
-      isLiked : wishlistItemsId.includes(el.id)
+      isLiked : wishlistItemsId.includes(el.id),
+      isAuthenticated : accessToken ? true : false,
     }));
   
   

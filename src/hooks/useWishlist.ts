@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 const  useWishlist= ()=> {
     const dispatch = useAppDispatch();
+
     useEffect (()=>{
        const promise = dispatch(actGetWishlist("productsFullInfo"));
        return ()=>{
@@ -19,7 +20,9 @@ const  useWishlist= ()=> {
     const records = productsFullInfo.map((el)=>({
       ...el ,
       quantity:cartItems[el.id] || 0 ,
-      isLiked : true
+      isLiked : true ,
+      isAuthenticated  :true,
+
     }));
   return {error , records , loading}
 }

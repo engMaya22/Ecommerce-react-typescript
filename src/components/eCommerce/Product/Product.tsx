@@ -1,4 +1,4 @@
-import { Button, Spinner } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import styles from "./styles.module.css";
 import { Tproduct } from "@types";
 import { useDispatch } from "react-redux";
@@ -10,10 +10,13 @@ import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 const { product, productImg ,maximumNotice ,wishListBtn} = styles;
 
 
-const Product = memo(({id , title ,img ,price , max ,quantity , isLiked}:Tproduct) => {
+const Product = memo(({id , title ,img ,price , max ,quantity , isLiked ,isAuthenticated}:Tproduct) => {
+
   const currentRemainQuantity = max - (quantity?? 0);//if no quantity added from product make it zero 
+
   const quantityReachedMax = currentRemainQuantity == 0 ? true :false;
- const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
  useEffect(()=>{
    if(!isBtnDisabled)
      return;
@@ -30,13 +33,18 @@ const Product = memo(({id , title ,img ,price , max ,quantity , isLiked}:Tproduc
 
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);//we need to specify type just in case there is more than one type
-
+  const [showModal , setShowModal] =useState(false);
   const addToCartHandler =()=>{
     dispatch (addToCart(id));
     setIsBtnDisabled(true)
 
   }
   const likeToggleHandler = ()=>{
+    if(!isAuthenticated)
+    {
+      setShowModal(true);
+      return ;
+    }
     if(isLoading)
       return;
     setIsLoading(true);
@@ -51,6 +59,15 @@ const Product = memo(({id , title ,img ,price , max ,quantity , isLiked}:Tproduc
 
   }
   return (
+  <>
+    <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login Required</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          You need to login first to add this item to your wishlist.
+        </Modal.Body>
+     </Modal>
     <div className={product}>
       <div className={wishListBtn} onClick={likeToggleHandler} >
         {
@@ -82,6 +99,7 @@ const Product = memo(({id , title ,img ,price , max ,quantity , isLiked}:Tproduc
       </Button>
 
     </div>
+  </>
   );
 });
 

@@ -10,7 +10,7 @@ type TRresponse = Tproduct[];
 
 const actGetWishlist = createAsyncThunk('/wishlist/actGetWishlist',async(dataType:TDataType, thunkAPI)=>{
  //this action return ether items of id of object items based on passed data type
-    const { fulfillWithValue , rejectWithValue , signal ,getState} = thunkAPI;
+    const {  rejectWithValue , signal ,getState} = thunkAPI;
 
     const { auth} = getState() as RootState;
     try{
@@ -18,7 +18,7 @@ const actGetWishlist = createAsyncThunk('/wishlist/actGetWishlist',async(dataTyp
             signal
         });//get products of user id
         if(!userWishlist.data.length)//he hasnot any item in wishlist then no need to call API
-            return {data:[] , dataType:[]};
+            return {data:[] , dataType:"empty"};
 
 
         if(dataType === "productIds"){
@@ -26,7 +26,7 @@ const actGetWishlist = createAsyncThunk('/wishlist/actGetWishlist',async(dataTyp
             const concatnectedItemsId = userWishlist.data.map((el)=> el.productId);
             return {data:concatnectedItemsId , dataType:"productsIds"};
 
-        }else{
+        }else  if(dataType === "productsFullInfo"){
             //when access to wishlist page get items object
             const concatnectedItemsId = userWishlist.data.map((el)=> `id=${el.productId}`).join('&');
             const response = await axios.get<TRresponse>(`/products?${concatnectedItemsId}`)
