@@ -4,8 +4,9 @@ import { Tproduct } from "@types";
 import { memo, useCallback } from "react";
 import { useAppDispatch } from "@store/hook";
 import { removeCartItem } from "@store/cart/cartSlice";
+import ProductInfo from "../ProductInfo/ProductInfo";
 
-const { cartItem, product, productImg, productInfo, cartItemSelection } =
+const { cartItem , cartItemSelection } =
   styles;
 
 type CartItemProps = Tproduct & {
@@ -33,7 +34,7 @@ const CartItem = memo(({id ,title,img,price , max ,quantity ,ChangeQuantityHandl
 
   return (
     <div className={cartItem}>
-      <div className={product}>
+      {/* <div className={product}>
         <div className={productImg}>
           <img
             src={img}
@@ -52,7 +53,17 @@ const CartItem = memo(({id ,title,img,price , max ,quantity ,ChangeQuantityHandl
             Remove
           </Button>
         </div>
-      </div>
+      </div> */}
+      <ProductInfo title={title} img={img} price={price} direction="column" >
+          <Button
+              variant="secondary"
+              style={{ color: "white" }}
+              className="mt-auto"
+              onClick={()=>DeleteItemHandler(id)}
+          >
+            Remove
+          </Button>
+      </ProductInfo>
 
       <div className={cartItemSelection}>
         <span className="d-block mb-1" > Quantity</span>

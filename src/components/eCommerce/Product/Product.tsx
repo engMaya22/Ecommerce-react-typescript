@@ -7,7 +7,8 @@ import { memo, useEffect, useState } from "react";
 import Like from "@assets/svg/like.svg?react"
 import LikeFill from "@assets/svg/like-fill.svg?react"
 import { actLikeToggle } from "@store/wishlist/wishlistSlice";
-const { product, productImg ,maximumNotice ,wishListBtn} = styles;
+import ProductInfo from "../ProductInfo/ProductInfo";
+const { maximumNotice ,wishListBtn} = styles;
 
 
 const Product = memo(({id , title ,img ,price , max ,quantity , isLiked ,isAuthenticated}:Tproduct) => {
@@ -68,7 +69,7 @@ const Product = memo(({id , title ,img ,price , max ,quantity , isLiked ,isAuthe
           You need to login first to add this item to your wishlist.
         </Modal.Body>
      </Modal>
-    <div className={product}>
+    {/* <div className={product}>
       <div className={wishListBtn} onClick={likeToggleHandler} >
         {
               isLoading? 
@@ -80,7 +81,7 @@ const Product = memo(({id , title ,img ,price , max ,quantity , isLiked ,isAuthe
                      : <Like />  
         }
           
-           </div>
+      </div>
       <div className={productImg}>
         <img
           src={img}
@@ -98,7 +99,34 @@ const Product = memo(({id , title ,img ,price , max ,quantity , isLiked ,isAuthe
         
       </Button>
 
-    </div>
+    </div> */}
+     <ProductInfo  title={title} img={img} price={price} direction="row">
+      <div className={wishListBtn} onClick={likeToggleHandler} >
+          {
+                isLoading? 
+                        <Spinner animation="border" variant="primary" size="sm"/>
+                        :
+
+                isLiked?
+                        <LikeFill />
+                      : <Like />  
+          }
+            
+        </div>
+        <p className={maximumNotice}>{quantityReachedMax ? "you reached max" : `you can add ${currentRemainQuantity} item(s)`}</p>
+          <Button variant="info" style={{ color: "white" }} 
+                  onClick={addToCartHandler} 
+                  disabled={isBtnDisabled || quantityReachedMax}
+                  >
+                    {isBtnDisabled? <><Spinner animation="border" size="sm"/>Loading...</> :"Add to cart" }
+            
+          </Button>
+
+     </ProductInfo>
+      
+      
+     
+ 
   </>
   );
 });
