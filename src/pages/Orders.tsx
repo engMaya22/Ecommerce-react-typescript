@@ -1,36 +1,18 @@
-import {actGetOrders} from "@store/orders/ordersSlice"
 import { Loading } from "@components/feedback";
 import { Heading } from "@components/common";
 import { ProductInfo } from "@components/eCommerce";
 import { Table, Modal } from "react-bootstrap";
-import { useAppDispatch ,useAppSelector} from "@store/hook";
-import {useEffect , useState} from "react"
-import {Tproduct} from "@types"
-
+import useOrders from "@hooks/useOrders"
 const Orders = () =>{
-    const dispatch = useAppDispatch();
-    const {loading , error , orderList } = useAppSelector(state => state.orders)
-
-    const [showModal , setShowModal] = useState(false);
-    const [selectedProduct , setSelectedProduct] = useState<Tproduct[]>([]);
-    useEffect (()=>{
-        const promise = dispatch(actGetOrders())
-        return ()=>{
-            promise.abort();
-        } 
-    },[dispatch])
-
-    const viewDetailsHandler =(id:number)=>{
-        const productDetails =  orderList.find(order => order.id == id);
-        const newItems = productDetails?.items ?? [];//we added it if there no data dont get undefined
-    //    console.log(productDetails);
-         setShowModal(true)
-         setSelectedProduct(prev => [...prev , ...newItems]);
-    }
-    const closeModalHandler =()=>{
-        setShowModal(false);
-        setSelectedProduct([]);
-    }
+    const {
+        loading ,
+        error ,
+        orderList ,
+        showModal,
+        selectedProduct,
+        viewDetailsHandler,
+        closeModalHandler
+    } = useOrders();
 
     return ( <>
                <Modal show={showModal} onHide={closeModalHandler}>
@@ -52,7 +34,7 @@ const Orders = () =>{
                     </Modal.Body>
                 </Modal>
              <Heading title="My Orders" />
-        //    <Loading error={error}  status={loading} type="category" />
+            <Loading error={error}  status={loading} type="category" />
             <Table striped bordered hover>
                     <thead>
                         <tr>
