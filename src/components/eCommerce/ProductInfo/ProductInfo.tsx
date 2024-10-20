@@ -5,10 +5,12 @@ type ProductInfoProps = {
     price: number ,
     direction : "row" | "column" ,// as the products cart is row but in products index page is col
     img : string ,
+    quantity ? : number
     children ?: React.ReactNode ,
     style ? : React.CSSProperties,
+
 }
-const ProductInfo = ({title , price , direction ="row" , img , children ,style }:ProductInfoProps) => {
+const ProductInfo = ({title , price , direction ="row" , img , children ,style , quantity}:ProductInfoProps) => {
   return (
     <div className={`${styles[`product-${direction}`]}`}  style={style}>
         <div className={`${styles[`productImg-${direction}`]}`}>
@@ -20,6 +22,8 @@ const ProductInfo = ({title , price , direction ="row" , img , children ,style }
         <div className={`${styles[`productInfo-${direction}`]}`}>
           <h2 title={title}>{title}</h2>
           <h3>{price.toFixed(2)}</h3>
+          {    quantity && <h3> Total Quantity : {quantity}</h3>}
+          {    quantity &&  <h3> Total Price : {quantity*price}</h3> }
           {children}
         </div>
       </div>
