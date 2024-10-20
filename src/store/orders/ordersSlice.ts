@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TOrderItem ,TLoading , isString } from "@types";
-import actPlaceOrder from "./act/actPlaceOrder"
+import actPlaceOrder from "./act/actPlaceOrder";
+import actGetOrders from "./act/actGetOrders"
+
 
 
   interface IOrders {
@@ -25,7 +27,7 @@ const ordersSlice = createSlice ({
         }
     },
     extraReducers : (builder)=>{
-
+//place order
       builder.addCase(actPlaceOrder.pending, (state) => {
          state.loading = 'pending';
          state.error = null;//reset when retry after failed
@@ -44,10 +46,30 @@ const ordersSlice = createSlice ({
 
           }
      })
+     //get order items
+      builder.addCase(actGetOrders.pending, (state) => {
+        state.loading = 'pending';
+        state.error = null;//reset when retry after failed
+      })
+
+      builder.addCase(actGetOrders.fulfilled, (state, action) => {
+          state.loading = 'succeeded';
+          state.orderList = action.payload;
+
+        })
+      builder.addCase(actGetOrders.rejected, (state, action) => {
+          state.loading = 'failed';
+          // 
+          if (isString(action.payload))
+          {
+              state.error =  action.payload;
+
+          }
+      })
  
 
     }
 });
-export {actPlaceOrder};
+export {actPlaceOrder , actGetOrders};
 export const  {resetOrderStatus}  =  ordersSlice.actions;
 export default ordersSlice.reducer;
