@@ -4,6 +4,7 @@ import products from "./products/productsSlice";
 import cart from "./cart/cartSlice";
 import wishlist from "./wishlist/wishlistSlice";
 import auth from "./auth/authSlice";
+import orders from "./orders/ordersSlice";
 import storage from "redux-persist/lib/storage";
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
@@ -16,6 +17,7 @@ const cartPersistConfig = {
     key:'cart',
     storage,//local storage for web
     whitelist:['items'],//cash just items in cart
+  
   }
   
 // const wishlistPersistConfig = {
@@ -34,6 +36,7 @@ const rootReducer = combineReducers({
     products,
     cart:persistReducer(cartPersistConfig, cart),//just save items from cart state
     wishlist,
+    orders
    
     
 });

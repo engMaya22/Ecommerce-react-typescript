@@ -13,6 +13,7 @@ const  useCart = () =>{
         } ));
   
     const dispatch = useAppDispatch();
+    const userAccessToken = useAppSelector(state => state.auth.accessToken);
     useEffect (()=>{
       const promise = dispatch(actGetProductsByItems())
       return ()=>{
@@ -32,7 +33,13 @@ const  useCart = () =>{
         dispatch(removeCartItem(id))
       
       } ,[dispatch]);
-  return  {products , loading ,error , ChangeQuantityHandler , deleteItemHandler }
+  return  {products , 
+           loading ,
+           error ,
+           ChangeQuantityHandler ,
+           deleteItemHandler , 
+           userAccessToken
+         }
   
 }
 

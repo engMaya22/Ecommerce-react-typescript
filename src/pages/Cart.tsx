@@ -6,7 +6,7 @@ import useCart from "@hooks/useCart";
 
 
 const  Cart=()=> {
-  const {products , loading ,error , ChangeQuantityHandler , deleteItemHandler } = useCart();
+  const {products , loading ,error , ChangeQuantityHandler , deleteItemHandler ,userAccessToken } = useCart();
   return (
     <>
      <Heading title="Your Cart" /> 
@@ -17,14 +17,13 @@ const  Cart=()=> {
                                ChangeQuantityHandler={ChangeQuantityHandler}
                                DeleteItemHandler={deleteItemHandler}/>
                 {/* this cartItemList for loop databy map */}
-                <CartSubtotalPrice products={products} />
-        
+                <CartSubtotalPrice products={products} userAccessToken = {userAccessToken}/>
               </> 
               : 
                 <LottieHandler  type="emptyCart"  message="Your cart is empty" />
 
                  
-              }
+     }
 
       </Loading>
      

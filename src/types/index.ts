@@ -2,5 +2,6 @@ import  {type  TLoading} from "./shared.types"
 import  { type Tcategory} from "./category.types"
 import  { type Tproduct} from "./product.types"
 import  { type Twishlist} from "./wishlist.types"
+import { type TOrderItem } from "./order.types"
 import { isString}  from "./gurads"
-export {TLoading , Tcategory ,Tproduct ,Twishlist , isString}
+export {TLoading , Tcategory ,Tproduct ,Twishlist , isString , TOrderItem}
