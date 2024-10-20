@@ -1,12 +1,12 @@
 //layouts
 import MainLayout from "@layouts/MainLayout/MainLayout"
+import ProfileLayout from "@layouts/ProfileLayout/ProfileLayout"
 
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { lazy, Suspense } from "react"
 import Error from "@pages/Error";
 import { LottieHandler, PageSuspense } from "@components/feedback";
-import Profile from "@pages/Profile";
 import ProtectedRoute from "@components/Auth/ProtectedRoute";
 //pages
 const Home = lazy(()=>import("@pages/Home"))
@@ -17,10 +17,12 @@ const Cart = lazy(()=>import("@pages/Cart"))
 const WishList = lazy(()=>import("@pages/WishList"))
 const Login = lazy(()=>import("@pages/Login"))
 const Register = lazy(()=>import("@pages/Register"))
-
+const Orders = lazy(()=>import("@pages/Orders"))
+const Account = lazy(()=>import("@pages/Account"))
 
 export default function AppRouter() {
-    const router = createBrowserRouter([{
+    const router = createBrowserRouter([
+      {
         path:"/",
         element:  <Suspense
                         fallback={
@@ -45,9 +47,29 @@ export default function AppRouter() {
             element : <PageSuspense  >  <Login />  </PageSuspense>
           },
           {
-             path:"profile",
-             element :  <ProtectedRoute> <PageSuspense  > <Profile /> </PageSuspense> </ProtectedRoute> 
+              path:"profile",
+              element :  <ProtectedRoute>
+                          <PageSuspense >
+                              <ProfileLayout /> 
+                          </PageSuspense> 
+                        </ProtectedRoute> ,
+              children:[
+                  {
+                    index:true,
+                    // I dont need to protect child as I already protect parent
+                    element: <PageSuspense >
+                                <Account />  
+                              </PageSuspense>
+                  },
+                  {
+                    path: "orders",
+                    element : <PageSuspense >
+                                 <Orders />  
+                              </PageSuspense>
+                  }
+              ]
           },
+
           {
             path:"register",
             element :  <PageSuspense  >  <Register />  </PageSuspense>
