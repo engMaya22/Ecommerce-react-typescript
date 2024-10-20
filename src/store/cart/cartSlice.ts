@@ -38,6 +38,11 @@ const cartSlice = createSlice({
         },
         cartProductInfoCleanUp:(state)=>{
             state.productsFullInfo = [];
+        },
+        cleanCartAfterPlaceHolder:(state)=>{
+            state.items= {};
+            state.productsFullInfo = [];
+
         }
 
      },
@@ -78,5 +83,10 @@ const cartSlice = createSlice({
 
 
 export {actGetProductsByItems };
-export const {addToCart , cartChangeQuantity ,removeCartItem ,cartProductInfoCleanUp} = cartSlice.actions;
+export const {addToCart ,
+             cartChangeQuantity ,
+             removeCartItem ,
+             cartProductInfoCleanUp ,
+             cleanCartAfterPlaceHolder
+            } = cartSlice.actions;
 export default cartSlice.reducer
