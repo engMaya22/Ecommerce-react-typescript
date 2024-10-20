@@ -6,7 +6,9 @@ import useCart from "@hooks/useCart";
 
 
 const  Cart=()=> {
-  const {products , loading ,error , ChangeQuantityHandler , deleteItemHandler ,userAccessToken } = useCart();
+  const {products , loading ,error , 
+        ChangeQuantityHandler , deleteItemHandler ,userAccessToken ,
+        placeOrderStatus } = useCart();
   return (
     <>
      <Heading title="Your Cart" /> 
@@ -20,6 +22,11 @@ const  Cart=()=> {
                 <CartSubtotalPrice products={products} userAccessToken = {userAccessToken}/>
               </> 
               : 
+              placeOrderStatus === "succeeded" ?
+                                           <LottieHandler  type="success"  message="Your older has been successfully" />
+                                                :
+
+                                                  
                 <LottieHandler  type="emptyCart"  message="Your cart is empty" />
 
                  

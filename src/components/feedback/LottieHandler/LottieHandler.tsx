@@ -3,13 +3,15 @@ import notFound from "@assets/Lottiefiles/notFound.json"
 import emptyCart from "@assets/Lottiefiles/emptyCart.json"
 import error from "@assets/Lottiefiles/error.json"
 import loading from "@assets/Lottiefiles/loading.json"
+import success from "@assets/Lottiefiles/success.json"
 
 
 const lottieFilesMap = {//we need this to map imports with passed type
   notFound,//name key same to name value(type)
   emptyCart,
   error,
-  loading
+  loading,
+  success
 }
 type LottieHandlerProps = {
     type: keyof typeof lottieFilesMap,
